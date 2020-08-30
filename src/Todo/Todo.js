@@ -14,13 +14,8 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
     this.state = { todo: [] };
-    this.handleChange = this.handleChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleChange(input) {
-    this.setState({ input });
   }
 
   handleKeyPress(todoText) {
@@ -45,11 +40,7 @@ class Todo extends React.Component {
       <div className='todo-box'>
         <h2>TODO</h2>
         <TodoItems todoList={this.state.todo} onClick={this.handleClick} />
-        <Input
-          value={this.state.input}
-          onChange={this.handleChange}
-          onKeyPress={this.handleKeyPress}
-        />
+        <Input value={this.state.input} onKeyPress={this.handleKeyPress} />
       </div>
     );
   }
