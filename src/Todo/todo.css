@@ -1,0 +1,43 @@
+.todo {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.todo > div {
+  width: 14px;
+  height: 18px;
+  margin-right: 6px;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.done > div {
+  background-color: mediumseagreen;
+}
+
+.working {
+  text-decoration: none;
+}
+
+.working > div {
+  background-color: orange;
+}
+
+.undone {
+  text-decoration: none;
+}
+
+.undone > div {
+  background-color: lightblue;
+}
+
+.todoText {
+  cursor: pointer;
+}
+
+.todo-box {
+  margin-left: 2%;
+}
