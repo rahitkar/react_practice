@@ -1,7 +1,8 @@
 import React from 'react';
 import Input from './Input';
 import TodoItems from './TodoItems';
-import incrementor from './incrementor'
+import incrementor from './incrementor';
+import { getDefault, toggleStatus } from './toggle';
 import './todo.css';
 
 class Todo extends React.Component {
@@ -15,8 +16,7 @@ class Todo extends React.Component {
 
   handleKeyPress(todoText) {
     const todo = this.state.todo.slice();
-    const undone = 0;
-    todo.push({ text: todoText, status: undone, id: this.generateId() });
+    todo.push({ text: todoText, status: getDefault(), id: this.generateId() });
     this.setState({ todo });
   }
 
@@ -24,7 +24,7 @@ class Todo extends React.Component {
     const todoList = this.state.todo.slice();
     todoList.forEach((todo) => {
       if (todo.id === +todoId) {
-        todo.status = (todo.status + 1) % 3;
+        todo.status = toggleStatus(todo.status);
       }
     });
     this.setState({ todo: todoList });

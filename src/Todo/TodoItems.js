@@ -12,10 +12,8 @@ class TodoItems extends React.Component {
   }
 
   render() {
-    const todoStates = ['undone', 'working', 'done'];
-
     const todoList = this.props.todoList.map((todo) => {
-      const classes = `todo ${todoStates[todo.status]}`;
+      const classes = `todo ${todo.status}`;
       return (
         <div key={todo.id} className={classes}>
           <div></div>
