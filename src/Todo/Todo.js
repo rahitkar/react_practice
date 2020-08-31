@@ -1,19 +1,14 @@
 import React from 'react';
 import Input from './Input';
 import TodoItems from './TodoItems';
+import incrementor from './incrementor'
 import './todo.css';
-
-const incrementor = () => {
-  let count = 0;
-  return () => count++;
-};
-
-const generateId = incrementor();
 
 class Todo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { todo: [] };
+    this.generateId = incrementor();
+    this.state = { todo: [], lastId: 0 };
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -21,7 +16,7 @@ class Todo extends React.Component {
   handleKeyPress(todoText) {
     const todo = this.state.todo.slice();
     const undone = 0;
-    todo.push({ text: todoText, status: undone, id: generateId() });
+    todo.push({ text: todoText, status: undone, id: this.generateId() });
     this.setState({ todo });
   }
 
