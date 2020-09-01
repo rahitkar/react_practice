@@ -23,7 +23,11 @@ class Heading extends React.Component {
 
     if (this.state.editable) {
       content = (
-        <Input value={this.props.heading} onKeyPress={this.handleKeyPress} />
+        <Input
+          className='edit-heading'
+          value={this.props.heading}
+          onKeyPress={this.handleKeyPress}
+        />
       );
     }
     return content;

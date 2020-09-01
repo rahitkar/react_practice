@@ -10,7 +10,7 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
     this.generateId = incrementor();
-    this.state = { todo: [], lastId: 0, heading: 'Todo' };
+    this.state = { todo: [], heading: 'Todo' };
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.replaceHeading = this.replaceHeading.bind(this);
@@ -44,7 +44,7 @@ class Todo extends React.Component {
           replaceHeading={this.replaceHeading}
         />
         <TodoItems todoList={this.state.todo} onClick={this.handleClick} />
-        <Input value='' onKeyPress={this.handleKeyPress} />
+        <Input onKeyPress={this.handleKeyPress} />
       </div>
     );
   }

@@ -24,10 +24,19 @@ class Input extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleKeyPress}>
-        <input value={this.state.input} onChange={this.handleChange} />
+        <input
+          className={this.props.className}
+          value={this.state.input}
+          onChange={this.handleChange}
+        />
       </form>
     );
   }
 }
+
+Input.defaultProps = {
+  value: '',
+  className: '',
+};
 
 export default Input;
