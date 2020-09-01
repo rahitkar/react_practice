@@ -11,18 +11,18 @@ class Todo extends React.Component {
     super(props);
     this.generateId = incrementor();
     this.state = { todo: [], heading: 'Todo' };
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.replaceHeading = this.replaceHeading.bind(this);
+    this.addTodo = this.addTodo.bind(this);
+    this.updateTodoStatus = this.updateTodoStatus.bind(this);
+    this.updateHeading = this.updateHeading.bind(this);
   }
 
-  handleKeyPress(todoText) {
+  addTodo(todoText) {
     const todo = this.state.todo.slice();
     todo.push({ text: todoText, status: getDefault(), id: this.generateId() });
     this.setState({ todo });
   }
 
-  handleClick(todoId) {
+  updateTodoStatus(todoId) {
     const todoList = [...this.state.todo];
     todoList.forEach((todo) => {
       if (todo.id === +todoId) {
@@ -32,7 +32,7 @@ class Todo extends React.Component {
     this.setState({ todo: todoList });
   }
 
-  replaceHeading(heading) {
+  updateHeading(heading) {
     this.setState({ heading });
   }
 
@@ -41,10 +41,10 @@ class Todo extends React.Component {
       <div className='todo-box'>
         <Heading
           heading={this.state.heading}
-          replaceHeading={this.replaceHeading}
+          updateHeading={this.updateHeading}
         />
-        <TodoItems todoList={this.state.todo} onClick={this.handleClick} />
-        <Input onKeyPress={this.handleKeyPress} />
+        <TodoItems todoList={this.state.todo} onClick={this.updateTodoStatus} />
+        <Input onKeyPress={this.addTodo} />
       </div>
     );
   }
