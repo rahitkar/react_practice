@@ -4,24 +4,24 @@ import Input from './Input';
 class Heading extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isClicked: false };
+    this.state = { editable: false };
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   handleClick() {
-    this.setState({ isClicked: true });
+    this.setState({ editable: true });
   }
 
   handleKeyPress(heading) {
-    this.setState({ isClicked: false });
+    this.setState({ editable: false });
     this.props.replaceHeading(heading);
   }
 
   render() {
     let content = <h1 onClick={this.handleClick}>{this.props.heading}</h1>;
 
-    if (this.state.isClicked) {
+    if (this.state.editable) {
       content = (
         <Input value={this.props.heading} onKeyPress={this.handleKeyPress} />
       );
