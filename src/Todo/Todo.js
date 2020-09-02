@@ -15,6 +15,7 @@ class Todo extends React.Component {
     this.updateTodoStatus = this.updateTodoStatus.bind(this);
     this.updateHeading = this.updateHeading.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
   }
 
   addTodo(todoText) {
@@ -42,11 +43,16 @@ class Todo extends React.Component {
     this.setState({ todo: todoList });
   }
 
+  deleteTodo() {
+    this.setState({ todo: [], heading: 'Todo' });
+  }
+
   render() {
     return (
       <div className='todo-box'>
         <Heading
           heading={this.state.heading}
+          deleteTodo={this.deleteTodo}
           updateHeading={this.updateHeading}
         />
         <TodoItems

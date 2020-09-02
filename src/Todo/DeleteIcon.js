@@ -3,10 +3,6 @@ import deleteIcon from './delete.svg';
 
 export default (props) => {
   return (
-    <img
-      src={deleteIcon}
-      alt='delete icon'
-      onClick={(event) => props.delete()}
-    />
+    <img src={deleteIcon} alt='delete icon' onClick={() => props.delete()} />
   );
 };
