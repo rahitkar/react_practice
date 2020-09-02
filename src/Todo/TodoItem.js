@@ -1,5 +1,5 @@
 import React from 'react';
-import deleteIcon from './delete.svg';
+import DeleteIcon from './DeleteIcon';
 
 class TodoItem extends React.Component {
   constructor(props) {
@@ -29,17 +29,11 @@ class TodoItem extends React.Component {
 
   render() {
     const { id, text, status } = this.props.todo;
-    const deleteElement = this.state.isDeleteIconVisible ? (
-      <img
-        src={deleteIcon}
-        alt='delete icon'
-        onClick={() => {
-          this.delete(id);
-        }}
-      />
-    ) : (
-      ''
-    );
+    let deleteElement;
+    if (this.state.isDeleteIconVisible) {
+      deleteElement = <DeleteIcon delete={() => this.delete(id)} />;
+    }
+    
     const classes = `task ${status}`;
     return (
       <div
