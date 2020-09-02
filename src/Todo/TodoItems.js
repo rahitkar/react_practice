@@ -6,7 +6,6 @@ const TodoItems = function(props) {
   const todoList = props.todoList.map((todo, index) => {
     return (
       <TodoItem
-        isDeleteIconVisible={index ? false : true}
         delete={props.deleteItem}
         todo={todo}
         onClick={props.onClick}

@@ -4,7 +4,7 @@ import deleteIcon from './delete.svg';
 class TodoItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isDeleteIconVisible: this.props.isDeleteIconVisible };
+    this.state = { isDeleteIconVisible: false };
     this.handleClick = this.handleClick.bind(this);
     this.delete = this.delete.bind(this);
     this.showDeleteIcon = this.showDeleteIcon.bind(this);
