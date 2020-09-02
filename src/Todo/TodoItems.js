@@ -1,30 +1,20 @@
 import React from 'react';
+import TodoItem from './TodoItem';
 import './todo.css';
 
-class TodoItems extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(event) {
-    this.props.onClick(event.target.id);
-  }
-
-  render() {
-    const todoList = this.props.todoList.map((todo) => {
-      const classes = `todo ${todo.status}`;
-      return (
-        <div key={todo.id} className={classes}>
-          <div></div>
-          <span className='todoText' id={todo.id} onClick={this.handleClick}>
-            {todo.text}
-          </span>
-        </div>
-      );
-    });
-    return <div>{todoList}</div>;
-  }
-}
+const TodoItems = function(props) {
+  const todoList = props.todoList.map((todo, index) => {
+    return (
+      <TodoItem
+        isDeleteIconVisible={index ? false : true}
+        delete={props.deleteItem}
+        todo={todo}
+        onClick={props.onClick}
+        key={todo.id}
+      />
+    );
+  });
+  return <div>{todoList}</div>;
+};
 
 export default TodoItems;

@@ -14,6 +14,7 @@ class Todo extends React.Component {
     this.addTodo = this.addTodo.bind(this);
     this.updateTodoStatus = this.updateTodoStatus.bind(this);
     this.updateHeading = this.updateHeading.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   addTodo(todoText) {
@@ -36,6 +37,11 @@ class Todo extends React.Component {
     this.setState({ heading });
   }
 
+  deleteItem(todoId) {
+    const todoList = this.state.todo.filter((todo) => todo.id !== +todoId);
+    this.setState({ todo: todoList });
+  }
+
   render() {
     return (
       <div className='todo-box'>
@@ -43,7 +49,11 @@ class Todo extends React.Component {
           heading={this.state.heading}
           updateHeading={this.updateHeading}
         />
-        <TodoItems todoList={this.state.todo} onClick={this.updateTodoStatus} />
+        <TodoItems
+          todoList={this.state.todo}
+          onClick={this.updateTodoStatus}
+          deleteItem={this.deleteItem}
+        />
         <Input onKeyPress={this.addTodo} />
       </div>
     );
