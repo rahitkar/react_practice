@@ -1,69 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from './Input';
 import TodoItems from './TodoItems';
-import incrementor from './incrementor';
 import Heading from './Heading';
 import { getDefault, toggleStatus } from './toggle';
 import './todo.css';
 
-class Todo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.generateId = incrementor();
-    this.state = { todo: [], heading: 'Todo' };
-    this.addTodo = this.addTodo.bind(this);
-    this.updateTodoStatus = this.updateTodoStatus.bind(this);
-    this.updateHeading = this.updateHeading.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
-  }
+const Todo = () => {
+  const [todo, updateTodo] = useState([]);
+  const [heading, changeHeading] = useState('Todo');
+  const [lastId, updateLastId] = useState(0);
 
-  addTodo(todoText) {
-    const todo = this.state.todo.slice();
-    todo.push({ text: todoText, status: getDefault(), id: this.generateId() });
-    this.setState({ todo });
-  }
+  const addTodo = (todoText) => {
+    updateTodo([
+      ...todo,
+      {
+        text: todoText,
+        status: getDefault(),
+        id: lastId,
+      },
+    ]);
+    updateLastId((lastId) => lastId + 1);
+  };
 
-  updateTodoStatus(todoId) {
-    const todoList = [...this.state.todo];
+  const updateTodoStatus = (todoId) => {
+    const todoList = [...todo];
     todoList.forEach((todo) => {
       if (todo.id === +todoId) {
         todo.status = toggleStatus(todo.status);
       }
     });
-    this.setState({ todo: todoList });
-  }
+    updateTodo(todoList);
+  };
 
-  updateHeading(heading) {
-    this.setState({ heading });
-  }
+  const updateHeading = (heading) => {
+    changeHeading(heading);
+  };
 
-  deleteItem(todoId) {
-    const todoList = this.state.todo.filter((todo) => todo.id !== +todoId);
-    this.setState({ todo: todoList });
-  }
+  const deleteItem = (todoId) => {
+    const todoList = todo.filter((todo) => todo.id !== +todoId);
+    updateTodo(todoList);
+  };
 
-  deleteTodo() {
-    this.setState({ todo: [], heading: 'Todo' });
-  }
+  const deleteTodo = () => {
+    updateTodo([]);
+    updateHeading('Todo');
+  };
 
-  render() {
-    return (
-      <div className='todo-box'>
-        <Heading
-          heading={this.state.heading}
-          deleteTodo={this.deleteTodo}
-          updateHeading={this.updateHeading}
-        />
-        <TodoItems
-          todoList={this.state.todo}
-          onClick={this.updateTodoStatus}
-          deleteItem={this.deleteItem}
-        />
-        <Input onKeyPress={this.addTodo} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className='todo-box'>
+      <Heading
+        heading={heading}
+        deleteTodo={deleteTodo}
+        updateHeading={updateHeading}
+      />
+      <TodoItems
+        todoList={todo}
+        onClick={updateTodoStatus}
+        deleteItem={deleteItem}
+      />
+      <Input onKeyPress={addTodo} />
+    </div>
+  );
+};
 
 export default Todo;
