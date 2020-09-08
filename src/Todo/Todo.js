@@ -1,49 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from './Input';
 import TodoItems from './TodoItems';
 import Heading from './Heading';
-import { getDefault, toggleStatus } from './toggle';
+import TodoApi from './TodoApi';
 import './todo.css';
 
 const Todo = () => {
   const [todo, updateTodo] = useState([]);
-  const [heading, changeHeading] = useState('Todo');
-  const [lastId, updateLastId] = useState(0);
+  const [heading, changeHeading] = useState('');
+
+  useEffect(() => {
+    TodoApi.getTodoData().then(({ heading, todo }) => {
+      changeHeading(heading);
+      updateTodo(todo);
+    });
+  }, []);
 
   const addTodo = (todoText) => {
-    updateTodo([
-      ...todo,
-      {
-        text: todoText,
-        status: getDefault(),
-        id: lastId,
-      },
-    ]);
-    updateLastId((lastId) => lastId + 1);
+    TodoApi.addTodo(todoText).then((todo) => updateTodo(todo));
   };
 
   const updateTodoStatus = (todoId) => {
-    const todoList = [...todo];
-    todoList.forEach((todo) => {
-      if (todo.id === +todoId) {
-        todo.status = toggleStatus(todo.status);
-      }
-    });
-    updateTodo(todoList);
+    TodoApi.updateTodoStatus(todoId).then((todo) => updateTodo(todo));
   };
 
   const updateHeading = (heading) => {
-    changeHeading(heading);
+    TodoApi.setHeading(heading).then(changeHeading);
   };
 
   const deleteItem = (todoId) => {
-    const todoList = todo.filter((todo) => todo.id !== +todoId);
-    updateTodo(todoList);
+    TodoApi.deleteTodo(todoId).then(updateTodo);
   };
 
   const deleteTodo = () => {
-    updateTodo([]);
-    updateHeading('Todo');
+    TodoApi.deleteTodoList().then(({ heading, todo }) => {
+      updateTodo(todo);
+      updateHeading(heading);
+    });
   };
 
   return (

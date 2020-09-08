@@ -12,4 +12,5 @@ const getDefault = () => TODO;
 const toggleStatus = function(currentStatus) {
   return toggle[currentStatus];
 };
-export { getDefault, toggleStatus };
+
+module.exports = { getDefault, toggleStatus };
